@@ -4,6 +4,7 @@
 import pymorphy2
 from modules import *
 from featureExtractor import FeatureExtractor
+from sklearn import metrics
 
 filePath = '/Users/lena/Downloads/tweets.json'
 read = ReadFile(filePath)
@@ -45,7 +46,7 @@ pred_proba = clf.predict_proba(test)
 
 pred = clf.predict(test)
 
-print  metrics.csore(test,label_test)
+
 
 
 
