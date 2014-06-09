@@ -31,28 +31,35 @@ class MorphFeatures:
 
     @staticmethod
     def morph_parse(tokenized):
-        for sentence in tokenized:
-           sentence = [(word.lower(),morph.parse(word)[0].tag.POS,morph.parse(word)[0].tag.case) for word in sentence if morph.parse(word)]
-           tweets_with_features.append(sentence)
-        return tweets_with_features
+        for i in range(0,len(tokenized)):
+           tokenized[i] = [(word.lower(),morph.parse(word)[0].tag.POS,morph.parse(word)[0].tag.case) for word in tokenized[i] if morph.parse(word)]
+
+        return tokenized
 
     @staticmethod
     def features(tweets_with_features):
-        for sentence in tweets_with_features:
-            for (w,pos,cas) in sentence:
-                if ((w,pos) == (w,"NOUN") or (w,pos) == (w,'NPRO')):
-                    extract_features.append(dict({'word':w,'pos':pos,'case':cas}))
-        return extract_features
+        for i in range(0,len(tweets_with_features)):
+            for (w,pos,cas) in tweets_with_features[i]:
+                if (pos == "NOUN" or pos == 'NPRO'):
+                    tweets_with_features[i] = dict({'word':w,'pos':pos,'case':cas})
+        return tweets_with_features
 
     @staticmethod
     def labels(extract_features):
-        for item in extract_features:
-                if (item['case']== u'nomn'):
+        for sentence in extract_features:
+                if (sentence.get('case') == u'nomn'):
                     target.append(1)
                 else:
                     target.append(0)
         return target
 
+    @staticmethod
+    def features_test(tweets_with_features):
+        for i in range(0,len(tweets_with_features)):
+            for (w,pos,cas) in tweets_with_features[i]:
+                if (w,pos,cas) == (w,"NOUN",'nomn'):
+                    tweets_with_features[i] = dict({'word':w,'pos':pos,'case':cas})
+        return tweets_with_features
 
 
 

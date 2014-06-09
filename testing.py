@@ -1,11 +1,12 @@
-from for_train.train import vec,clf,training_set,target
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+import pymorphy2
+morph = pymorphy2.MorphAnalyzer()
 
-train  = vec.fit_transform(training_set).toarray()
+word  = u'Мария'
 
-clf = clf.fit(train,target)
+print morph.parse(word)[0].tag
 
-import test
-
-test.test_set = vec.transform(test.extract_features_test).toarray()
-
-print len(test.test_set)
+    #Иск удовлетворили полностью!!
+#              u'как выгнать ляскина из новокосино? достал уже')
+#Рада сообщить,что мой прекрасный юрист Мария Князева в очередной раз выиграла дело против Яуза-пресс!
